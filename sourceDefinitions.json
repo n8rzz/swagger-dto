@@ -1,0 +1,954 @@
+[
+  {
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Parallax",
+      "version": "v5"
+    },
+    "paths": {
+      "/v5/employees/details": {
+        "get": {
+          "tags": [
+            "Employees"
+          ],
+          "summary": "Lists employees details (Auth policies: RequiresSuperAdminOrMembership, RequireUser)",
+          "operationId": "ListEmployeesDetailsV5",
+          "parameters": [
+            {
+              "name": "Term",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "OrderBy",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "TeamIds",
+              "in": "query",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            {
+              "name": "RoleIds",
+              "in": "query",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            {
+              "name": "EmployeeTypes",
+              "in": "query",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/EmployeeType"
+                }
+              }
+            },
+            {
+              "name": "EmployeeBillability",
+              "in": "query",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Billability"
+                }
+              }
+            },
+            {
+              "name": "LocationIds",
+              "in": "query",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            },
+            {
+              "name": "IntegrationTypes",
+              "in": "query",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IntegrationType"
+                }
+              }
+            },
+            {
+              "name": "Alert.Threshold",
+              "in": "query",
+              "schema": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            {
+              "name": "Alert.AlertDto",
+              "in": "query",
+              "schema": {
+                "$ref": "#/components/schemas/EmployeeAlert"
+              }
+            },
+            {
+              "name": "TagFilter.Tags",
+              "in": "query",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "name": "TagFilter.Type",
+              "in": "query",
+              "schema": {
+                "$ref": "#/components/schemas/TagFilterType"
+              }
+            },
+            {
+              "name": "SearchPeriod",
+              "in": "query",
+              "schema": {
+                "$ref": "#/components/schemas/SearchPeriod"
+              }
+            },
+            {
+              "name": "Page",
+              "in": "query",
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            {
+              "name": "PageSize",
+              "in": "query",
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            {
+              "name": "parallax-organization-id",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PagedResults<EmployeeDetailDtoV4>"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PagedResults<EmployeeDetailDtoV4>"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PagedResults<EmployeeDetailDtoV4>"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Server Error"
+            },
+            "default": {
+              "description": "Error",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v5/employees/details/alerts": {
+        "post": {
+          "tags": [
+            "Employees"
+          ],
+          "summary": "Gets the Alerts for the Employee Details (Auth policies: RequiresSuperAdminOrMembership, RequireUser)",
+          "operationId": "GetEmployeeDetailsAlertsV5",
+          "parameters": [
+            {
+              "name": "parallax-organization-id",
+              "in": "header",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json-patch+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetEmployeeDetailsAlertsV5"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetEmployeeDetailsAlertsV5"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetEmployeeDetailsAlertsV5"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetEmployeeDetailsAlertsV5"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Alert<EmployeeAlert>"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Alert<EmployeeAlert>"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Alert<EmployeeAlert>"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "409": {
+              "description": "Conflict",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Client Error",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Server Error"
+            },
+            "default": {
+              "description": "Error",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ProblemDetails"
+                      },
+                      {
+                        "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Alert<EmployeeAlert>": {
+          "type": "object",
+          "properties": {
+            "alerts": {
+              "type": "object",
+              "properties": {
+                "no_work": {
+                  "$ref": "#/components/schemas/AlertState"
+                },
+                "low_allocation": {
+                  "$ref": "#/components/schemas/AlertState"
+                },
+                "time_entry_needed": {
+                  "$ref": "#/components/schemas/AlertState"
+                },
+                "possible_burnout": {
+                  "$ref": "#/components/schemas/AlertState"
+                },
+                "low_utilization": {
+                  "$ref": "#/components/schemas/AlertState"
+                }
+              },
+              "additionalProperties": false,
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "AlertState": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Billability": {
+          "enum": [
+            "Billable",
+            "NonBillable"
+          ],
+          "type": "string"
+        },
+        "EmployeeAlert": {
+          "enum": [
+            "no_work",
+            "low_allocation",
+            "time_entry_needed",
+            "possible_burnout",
+            "low_utilization"
+          ],
+          "type": "string"
+        },
+        "EmployeeDetailDtoV4": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "given_name": {
+              "type": "string",
+              "nullable": true
+            },
+            "family_name": {
+              "type": "string",
+              "nullable": true
+            },
+            "image_url": {
+              "type": "string",
+              "nullable": true
+            },
+            "role_name": {
+              "type": "string",
+              "nullable": true
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            },
+            "department_name": {
+              "type": "string",
+              "nullable": true
+            },
+            "assignment_count": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "employee_type": {
+              "$ref": "#/components/schemas/EmployeeType"
+            },
+            "target_utilization": {
+              "$ref": "#/components/schemas/Utilization"
+            },
+            "billable_capacity": {
+              "$ref": "#/components/schemas/Utilization"
+            },
+            "planned_billable_utilization": {
+              "$ref": "#/components/schemas/Utilization"
+            },
+            "planned_total_utilization": {
+              "$ref": "#/components/schemas/Utilization"
+            },
+            "actual_billable_utilization": {
+              "$ref": "#/components/schemas/Utilization"
+            },
+            "actual_total_utilization": {
+              "$ref": "#/components/schemas/Utilization"
+            },
+            "actual_billable_vs_planned_billable": {
+              "$ref": "#/components/schemas/Utilization"
+            },
+            "planned_billable_vs_billable_capacity": {
+              "$ref": "#/components/schemas/Utilization"
+            },
+            "actual_billable_vs_billable_capacity": {
+              "$ref": "#/components/schemas/Utilization"
+            },
+            "planned_billable_vs_target_utilization": {
+              "$ref": "#/components/schemas/Utilization"
+            },
+            "actual_billable_vs_target_utilization": {
+              "$ref": "#/components/schemas/Utilization"
+            },
+            "actual_total_vs_planned_total": {
+              "$ref": "#/components/schemas/Utilization"
+            },
+            "planned_total_vs_total_capacity": {
+              "$ref": "#/components/schemas/Utilization"
+            },
+            "actual_total_vs_total_capacity": {
+              "$ref": "#/components/schemas/Utilization"
+            }
+          },
+          "additionalProperties": false
+        },
+        "EmployeeType": {
+          "enum": [
+            "full_time",
+            "contractor",
+            "placeholder"
+          ],
+          "type": "string"
+        },
+        "GetEmployeeDetailsAlertsV5": {
+          "type": "object",
+          "properties": {
+            "threshold_alerts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ThresholdAlert"
+              },
+              "nullable": true
+            },
+            "integration_types": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/IntegrationType"
+              },
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "HttpValidationProblemDetails": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ProblemDetails"
+            }
+          ],
+          "properties": {
+            "errors": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "nullable": true
+            }
+          },
+          "additionalProperties": {}
+        },
+        "IntegrationType": {
+          "enum": [
+            "crm",
+            "timesheet",
+            "bot",
+            "pm",
+            "enterprise"
+          ],
+          "type": "string"
+        },
+        "PagedResults<EmployeeDetailDtoV4>": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "is_first": {
+              "type": "boolean"
+            },
+            "is_last": {
+              "type": "boolean"
+            },
+            "has_next_page": {
+              "type": "boolean"
+            },
+            "has_previous_page": {
+              "type": "boolean"
+            },
+            "results": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/EmployeeDetailDtoV4"
+              },
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "ProblemDetails": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "nullable": true
+            },
+            "title": {
+              "type": "string",
+              "nullable": true
+            },
+            "status": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "detail": {
+              "type": "string",
+              "nullable": true
+            },
+            "instance": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": {}
+        },
+        "SearchPeriod": {
+          "enum": [
+            "today",
+            "yesterday",
+            "tomorrow",
+            "this_week",
+            "this_month",
+            "last_week",
+            "last_month",
+            "next_week",
+            "next_month",
+            "next_eight_weeks"
+          ],
+          "type": "string"
+        },
+        "TagFilterType": {
+          "enum": [
+            "contains_all",
+            "contains_any"
+          ],
+          "type": "string"
+        },
+        "ThresholdAlert": {
+          "type": "object",
+          "properties": {
+            "threshold": {
+              "type": "number",
+              "format": "double"
+            },
+            "alert_dto": {
+              "$ref": "#/components/schemas/EmployeeAlert"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Utilization": {
+          "type": "object",
+          "properties": {
+            "hours": {
+              "type": "number",
+              "format": "double"
+            },
+            "utilization": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "securitySchemes": {
+        "Bearer": {
+          "type": "apiKey",
+          "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"\r\n\r\nEnter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: 'Bearer 12345abcdef'",
+          "name": "Authorization",
+          "in": "header"
+        }
+      }
+    },
+    "security": [
+      {
+        "Bearer": []
+      }
+    ],
+    "tags": [
+      {
+        "name": "Employees",
+        "description": "Employees"
+      }
+    ]
+  }
+]

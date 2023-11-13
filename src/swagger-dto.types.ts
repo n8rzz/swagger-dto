@@ -1,27 +1,27 @@
 import { Block } from "comment-parser";
 
 export interface IAppConfig {
-    root: string;
-    sources: string[];
+  root: string;
+  sources: string[];
 }
 
 export interface INameAndPath {
-    name: string;
-    path: string;
+  name: string;
+  path: string;
 }
 
 export interface IDeclarationsAndTokens {
-    declarations: INameAndPath[];
-    tokens: Block[][];
+  declarations: INameAndPath[];
+  tokens: Block[][];
 }
 
 export interface IPathsAndSchema {
-    components: { schemas: unknown[] },
-    paths: {
-        [key: string]: any;
-    }
+  components: { schemas: unknown[] };
+  paths: {
+    [key: string]: any;
+  };
 }
 
 export interface IPathsAndSchemasByVersion {
-    [key: string]: IPathsAndSchema;
+  [key: string]: IPathsAndSchema;
 }
