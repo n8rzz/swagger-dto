@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
     "ts": "tsc",
     "start": "node --loader ts-node/esm ./src/index.ts"
   },
@@ -14,7 +17,8 @@
     "@types/node": "^20.9.0",
     "prettier": "^3.0.3",
     "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   },
   "dependencies": {
     "comment-parser": "^1.4.1",
