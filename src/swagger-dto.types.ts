@@ -25,3 +25,12 @@ export interface IPathsAndSchema {
 export interface IPathsAndSchemasByVersion {
   [key: string]: IPathsAndSchema;
 }
+
+export interface IRENAME {
+  dto: string;
+  method: string;
+  name: string;
+  path: string;
+  type: "request" | "response";
+  url: string;
+}

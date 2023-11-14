@@ -2,6 +2,7 @@ import ts from "typescript";
 import fs from "fs";
 import path from "path";
 import { Block, parse } from "comment-parser";
+import flatten from "lodash.flatten";
 import { IDeclarationsAndTokens, INameAndPath } from "./swagger-dto.types";
 
 /**
@@ -22,7 +23,7 @@ function _findTypeScriptFiles(directory: string): string[] {
  * @param filePath {string}
  * @returns Block[]
  */
-function _extractTokens(filePath: string): Block[] {
+function _parseDocBlocks(filePath: string): Block[] {
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const parsedContent = parse(fileContent);
 
@@ -74,14 +75,17 @@ export function parseSourceAndExtractTokensAndDeclarations(
   tsFiles.forEach((file) => {
     const filePath = path.join(directoryPath, file);
     const foundDeclarations = _extractTypeDeclarations(filePath);
-    const parsedDocBlocks = _extractTokens(filePath);
+    const parsedDocBlocks = _parseDocBlocks(filePath);
 
-    tokens.push(parsedDocBlocks);
+    if (parsedDocBlocks.length > 0) {
+      tokens.push(parsedDocBlocks);
+    }
+
     declarations.push(...foundDeclarations);
   });
 
   return {
-    declarations,
+    declarations: flatten(declarations),
     tokens,
   };
 }
